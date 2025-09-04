@@ -25,18 +25,28 @@ jobs:
             tenant-id: d49a6a04-c150-412a-af23-dc2fcc908e3c
             subscription-id: 99c7c7ea-a267-488b-9d38-a2547f06712c
 
-        - name: Terraform fmt
-          id: fmt
-          run: terraform fmt -check
-          continue-on-error: true
-          working-directory: environments/dev
         
         - name: Terraform Init
           id: init
           run: terraform init -input=false
           working-directory: environments/dev
 
+        - name: Terraform fmt
+          id: fmt
+          run: terraform fmt -check
+          continue-on-error: true
+          working-directory: environments/dev
 
+        - name: Terraform Validate
+          id: validate
+          run: terraform validate -no-color
+          working-directory: environments/dev
+        
+        - name: Terraform Plan
+          id: plan
+          run: terraform plan -no-color -input=false
+          continue-on-error: true
+          working-directory: environments/dev
 
 
 

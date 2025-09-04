@@ -8,8 +8,13 @@ jobs:
     steps:
         - name: Checkout
           uses: actions/checkout@v5.0.0
-        - name: Install Terraform
-          uses: little-core-labs/install-terraform@v2.0.0
+          
+           
+        - name: Azure Login
+          uses: Azure/login@v2.3.0
           with:
-           version: 1.13.1 
+            client-id: cf054bd2-cdd3-4b1e-a48a-6c5468184b2f
+            tenant-id: d49a6a04-c150-412a-af23-dc2fcc908e3c
+            subscription-id: 99c7c7ea-a267-488b-9d38-a2547f06712c
+            
           

@@ -9,7 +9,6 @@ permissions:
 
 jobs: 
   terraform-init-plan:
-   environment: dev
    runs-on: self-hosted
    steps:
         - name: Checkout

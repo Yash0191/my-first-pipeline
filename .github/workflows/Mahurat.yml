@@ -8,8 +8,9 @@ permissions:
 
 jobs: 
   terraform-job:
-    runs-on: self-hosted
-    steps:
+   environment: dev
+   runs-on: self-hosted
+   steps:
         - name: Checkout
           uses: actions/checkout@v5.0.0
 
@@ -48,11 +49,6 @@ jobs:
           continue-on-error: true
           working-directory: environments/dev
 
-  manual-approval:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: trstringer/manual-approval@v1
-          timeout-minutes: 60
           
         # - name: Manual Workflow Approval
         #   uses: trstringer/manual-approval@v1.9.0

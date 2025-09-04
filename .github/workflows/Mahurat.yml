@@ -29,10 +29,12 @@ jobs:
           id: fmt
           run: terraform fmt -check
           continue-on-error: true
+          working-directory: environments/dev
         
         - name: Terraform Init
           id: init
           run: terraform init -input=false
+          working-directory: environments/dev
 
 
 

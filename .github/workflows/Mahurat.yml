@@ -2,6 +2,11 @@ name : "Pehla Workflow on Github Action"
 
 on: workflow_dispatch
 
+permissions:
+  id-token: write
+  contents: read
+
+
 jobs: 
   terraform-job:
     runs-on: self-hosted

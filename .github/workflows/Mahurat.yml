@@ -1,0 +1,7 @@
+name : Pehla Workflow on Github Action
+
+on: wrokflow_dispatch
+
+jobs: 
+  terraform-job:
+    runs_on: self-hosted

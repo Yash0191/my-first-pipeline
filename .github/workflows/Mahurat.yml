@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 jobs: 
-  terraform-job:
+  terraform-init-plan:
    environment: dev
    runs-on: self-hosted
    steps:
@@ -32,11 +32,6 @@ jobs:
           run: terraform init -input=false
           working-directory: environments/dev
 
-        - name: Terraform fmt
-          id: fmt
-          run: terraform fmt -check
-          continue-on-error: true
-          working-directory: environments/dev
 
         - name: Terraform Validate
           id: validate
@@ -49,34 +44,36 @@ jobs:
           continue-on-error: true
           working-directory: environments/dev
 
-          
-        # - name: Manual Workflow Approval
-        #   uses: trstringer/manual-approval@v1.9.0
-        #   # with:
-        #     # # Required approvers
-        #     # approvers: 
-        #     # # Secret
-        #     # secret: 
-        #     # # Minimum number of approvals to progress workflow
-        #     # minimum-approvals: # optional
-        #     # # The custom subtitle for the issue
-        #     # issue-title: # optional
-        #     # # The custom body for the issue
-        #     # issue-body: # optional
-        #     # # Whether or not to filter out the user who initiated the workflow as an approver if they are in the approvers list
-        #     # exclude-workflow-initiator-as-approver: # optional
-        #     # # Comma separated list of words that can be used to approve beyond the defaults.
-        #     # additional-approved-words: # optional, default is 
-        #     # # Comma separated list of words that can be used to deny beyond the defaults.
-        #     # additional-denied-words: # optional, default is 
-                  
+  terraform-apply:
+   environment: dev
+   needs:  terraform-init-plan
+   runs-on: self-hosted
+   steps:
+        - name: Checkout
+          uses: actions/checkout@v5.0.0
 
+        - name: Azure Login
+          uses: Azure/login@v2.3.0
+          with:
+            client-id: cf054bd2-cdd3-4b1e-a48a-6c5468184b2f
+            tenant-id: d49a6a04-c150-412a-af23-dc2fcc908e3c
+            subscription-id: 99c7c7ea-a267-488b-9d38-a2547f06712c
 
+        - name: Terraform Init
+          run: terraform init -input=false
+          working-directory: environments/dev
 
+        - name: Terraform Apply
+          run: terraform apply -auto-approve -input=false
+          working-directory: environments/dev
 
 
 
 
             
-            
+
+
           
+
+          
+        # 

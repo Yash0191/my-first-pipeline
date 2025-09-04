@@ -1,7 +1,11 @@
-name : Pehla Workflow on Github Action
+name : "Pehla Workflow on Github Action"
 
-on: wrokflow_dispatch
+on: workflow_dispatch
 
 jobs: 
   terraform-job:
     runs_on: self-hosted
+       steps:
+          - name: Checkout
+            uses: actions/checkout@v5.0.0
+  
